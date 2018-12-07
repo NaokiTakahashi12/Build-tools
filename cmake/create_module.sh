@@ -1,10 +1,12 @@
 #! /bin/bash
 
-mkdir -p NonNameModule/build && cp `dirname $0`/CMakeLists.txt NonNameModule/build/
+default_module_name=NonNameModule
+
+mkdir -p $default_module_name/build && cp `dirname $0`/CMakeLists.txt $default_module_name/build/
 
 if [ "$(uname)" == 'Darwin' ]; then
-	gsed -i -e "12i set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} `cd $(dirname $0) && pwd`/module)" CMakeLists.txt
+	gsed -i -e "12i set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} `cd $(dirname $0) && pwd`/module)" $default_module_name/build/CMakeLists.txt
 else
-	gsed -i -e "12i set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} `cd $(dirname $0) && pwd`/module)" CMakeLists.txt
+	sed -i -e "12i set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} `cd $(dirname $0) && pwd`/module)" $default_module_name/build/CMakeLists.txt
 fi
 
